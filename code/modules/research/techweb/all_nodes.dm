@@ -142,7 +142,7 @@
 	display_name = "Advanced Engineering"
 	description = "Pushing the boundaries of physics, one chainsaw-fist at a time."
 	prereq_ids = list("engineering", "emp_basic")
-	design_ids = list("engine_goggles", "magboots", "forcefield_projector", "weldingmask")
+	design_ids = list("engine_goggles", "magboots", "forcefield_projector", "weldingmask", "borg_transform_enhancedengineering")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -171,6 +171,15 @@
 	prereq_ids = list("engineering")
 	design_ids = list("smes", "super_cell", "hyper_cell", "super_capacitor", "superpacman", "mrspacman", "power_turbine", "power_turbine_console", "power_compressor", "circulator", "teg")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+
+/datum/techweb_node/adv_engi_cyborg
+	id = "adv_engi_cyborg"
+	display_name = "Advanced Cyborg Engineering"
+	description = "By installing experimental tools, cyborgs become a lot more handy."
+	prereq_ids = list("exp_tools","adv_robotics")
+	design_ids = list("borg_transform_enhancedengineering")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
 /////////////////////////Bluespace tech/////////////////////////
