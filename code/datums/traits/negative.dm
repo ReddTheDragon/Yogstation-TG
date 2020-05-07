@@ -519,6 +519,7 @@
 	name = "Smoker"
 	desc = "Sometimes you just really want a smoke. Probably not great for your lungs."
 	value = -1
+	mood_quirk = TRUE
 	gain_text = "<span class='danger'>You could really go for a smoke right about now.</span>"
 	lose_text = "<span class='notice'>You feel like you should quit smoking.</span>"
 	medical_record_text = "Patient is a current smoker."
@@ -577,3 +578,38 @@
 	H.remove_language(/datum/language/common)
 	if(!H.can_speak_language(/datum/language/draconic) && !H.can_speak_language(/datum/language/machine))
 		H.grant_language(/datum/language/japanese)
+
+/datum/quirk/allergic
+	name = "Allergic Reaction"
+	desc = "You have had an allergic reaction to medicine in the past. Better stay away from it!"
+	value = -1
+	mob_trait = TRAIT_ALLERGIC
+	gain_text = "<span class='danger'>You remember your allergic reaction to a common medicine.</span>"
+	lose_text = "<span class='notice'>You no longer are allergic to medicine.</span>"
+	medical_record_text = "Patient has a severe allergic reaction to a common medicine."
+	var/allergy_chem_list = list(	/datum/reagent/medicine/inacusiate,
+									/datum/reagent/medicine/silver_sulfadiazine,
+									/datum/reagent/medicine/styptic_powder,
+									/datum/reagent/medicine/omnizine,
+									/datum/reagent/medicine/oculine,
+									/datum/reagent/medicine/neurine,
+									/datum/reagent/medicine/bicaridine,
+									/datum/reagent/medicine/kelotane) //Everything in the list can be healed from another source round-start
+	var/reagent_id
+	var/cooldown_time = 1 MINUTES //Cant act again until the first wears off
+	var/cooldown = FALSE
+
+/datum/quirk/allergic/on_spawn()
+	reagent_id = pick(allergy_chem_list)
+	var/datum/reagent/allergy = GLOB.chemical_reagents_list[reagent_id]
+	to_chat(quirk_holder, "<span class='danger'>You remember you are allergic to [allergy.name].</span>")
+	quirk_holder.allergies += allergy
+
+/datum/quirk/allergic/on_process()
+	var/mob/living/carbon/H = quirk_holder
+	var/datum/reagent/allergy = GLOB.chemical_reagents_list[reagent_id]
+	if(cooldown == FALSE && H.reagents.has_reagent(reagent_id))
+		to_chat(quirk_holder, "<span class='danger'>You forgot you were allergic to [allergy.name]!</span>")
+		H.reagents.add_reagent(/datum/reagent/toxin/histamine, rand(5,10))
+		cooldown = TRUE
+		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), cooldown_time)
