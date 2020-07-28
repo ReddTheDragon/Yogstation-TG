@@ -1144,7 +1144,7 @@
 //I tried playing CAS, then realized some people don't know the rules.
 /obj/item/storage/box/casrulebook
 	name = "Cards Against Spess Rulebook"
-	icon_state = "cas_rulebook"
+	illustration = "heart"
 
 /obj/item/storage/box/casrulebook/ComponentInitialize()
 	. = ..()
