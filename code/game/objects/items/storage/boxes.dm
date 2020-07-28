@@ -1140,3 +1140,24 @@
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/screwdriver = 1)
 	generate_items_inside(items_inside,src)
+
+//I tried playing CAS, then realized some people don't know the rules.
+/obj/item/storage/box/casrulebook
+	name = "Cards Against Spess Rulebook"
+	icon_state = "cas_rulebook"
+
+/obj/item/storage/box/casrulebook/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 5
+	STR.set_holdable(list(/obj/item/toy/cards/deck/cas, /obj/item/toy/cards/deck/cas/black))
+	STR.max_combined_w_class = 5
+	
+/obj/item/storage/box/casrulebook/PopulateContents()
+    //the items that will be inserted inside the 'box'
+	var/static/items_inside = list(
+		/obj/item/toy/cards/deck/cas = 1,
+		/obj/item/toy/cards/deck/cas/black = 1
+	)
+	//puts the actual items inside
+	generate_items_inside(items_inside,src)
