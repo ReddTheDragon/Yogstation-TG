@@ -1142,18 +1142,20 @@
 	generate_items_inside(items_inside,src)
 
 //I tried playing CAS, then realized some people don't know the rules.
-/obj/item/storage/box/casrulebook
-	name = "Cards Against Spess Rulebook"
+/obj/item/storage/box/casbox
+	name = "Cards Against Spess Box"
 	illustration = "heart"
+	desc = "A box for Cards Against Spess"
 
-/obj/item/storage/box/casrulebook/ComponentInitialize()
+/obj/item/storage/box/casbox/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 5
+	STR.max_items = 3
 	STR.set_holdable(list(/obj/item/toy/cards/deck/cas, /obj/item/toy/cards/deck/cas/black))
+	//this variable allows an object with a weight of 5 to be stored
 	STR.max_combined_w_class = 5
 	
-/obj/item/storage/box/casrulebook/PopulateContents()
+/obj/item/storage/box/casbox/PopulateContents()
     //the items that will be inserted inside the 'box'
 	var/static/items_inside = list(
 		/obj/item/toy/cards/deck/cas = 1,
