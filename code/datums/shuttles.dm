@@ -273,6 +273,11 @@
 	admin_notes = "Has airlocks on both sides of the shuttle and will probably intersect near the front on some stations that build past departures."
 	credit_cost = 2500
 
+/datum/map_template/shuttle/emergency/horizoncorp
+	suffix = "horizoncorp"
+	name = "Horizon Corporation Emergency Shuttle"
+	description = "A shuttle from a rival corporation built for transporting a lot of people. Comfy too."
+	credit_cost = 0
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
 	name = "Snappop(tm)!"
